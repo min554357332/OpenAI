@@ -50,7 +50,7 @@ public struct AudioSpeechQuery: Codable {
     public let responseFormat: AudioSpeechResponseFormat?
     /// The speed of the generated audio. Select a value from **0.25** to **4.0**. **1.0** is the default.
     /// Defaults to 1
-    public let speed: String?
+    public let speed: Double?
     
     public enum CodingKeys: String, CodingKey {
         case model
@@ -89,13 +89,13 @@ public extension AudioSpeechQuery {
         case min = 0.25
     }
 
-    static func normalizeSpeechSpeed(_ inputSpeed: Double?) -> String {
-        guard let inputSpeed else { return "\(Self.Speed.normal.rawValue)" }
+    static func normalizeSpeechSpeed(_ inputSpeed: Double?) -> Double {
+        guard let inputSpeed else { return Self.Speed.normal.rawValue }
         let isSpeedOutOfBounds = inputSpeed <= Self.Speed.min.rawValue || Self.Speed.max.rawValue <= inputSpeed
         guard !isSpeedOutOfBounds else {
             print("[AudioSpeech] Speed value must be between 0.25 and 4.0. Setting value to closest valid.")
-            return inputSpeed < Self.Speed.min.rawValue ? "\(Self.Speed.min.rawValue)" : "\(Self.Speed.max.rawValue)"
+            return inputSpeed < Self.Speed.min.rawValue ? Self.Speed.min.rawValue : Self.Speed.max.rawValue
         }
-        return "\(inputSpeed)"
+        return inputSpeed
     }
 }
