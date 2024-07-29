@@ -23,7 +23,7 @@ public enum ResponseFormat: String, Codable, Equatable {
     public let model: Model?
     /// The format in which the generated images are returned. Must be one of url or b64_json.
     /// Defaults to url
-    public let responseFormat: Self.ResponseFormat?
+    public let response_format: Self.ResponseFormat?
     /// The number of images to generate. Must be between 1 and 10. For dall-e-3, only n=1 is supported.
     /// Defaults to 1
     public let n: Int?
@@ -39,37 +39,6 @@ public enum ResponseFormat: String, Codable, Equatable {
     /// The quality of the image that will be generated. hd creates images with finer details and greater consistency across the image. This param is only supported for dall-e-3.
     /// Defaults to standard
     public let quality: Self.Quality?
-
-    public init(
-        prompt: String,
-        model: Model? = nil,
-        n: Int? = nil,
-        quality:Self.Quality? = nil,
-        responseFormat: Self.ResponseFormat? = nil,
-        size: Size? = nil,
-        style: Self.Style? = nil,
-        user: String? = nil
-    ) {
-        self.prompt = prompt
-        self.n = n
-        self.size = size
-        self.model = model
-        self.responseFormat = responseFormat
-        self.style = style
-        self.user = user
-        self.quality = quality
-    }
-
-    public enum CodingKeys: String, CodingKey {
-        case model
-        case prompt
-        case n
-        case size
-        case user
-        case style
-        case responseFormat = "response_format"
-        case quality
-    }
 
     public enum Style: String, Codable, CaseIterable {
         case natural
