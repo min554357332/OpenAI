@@ -40,6 +40,26 @@ public enum ResponseFormat: String, Codable, Equatable {
     /// Defaults to standard
     public let quality: Self.Quality?
 
+    public init(
+        prompt: String,
+        model: Model? = nil,
+        n: Int? = nil,
+        quality:Self.Quality? = nil,
+        responseFormat: Self.ResponseFormat? = nil,
+        size: Size? = nil,
+        style: Self.Style? = nil,
+        user: String? = nil
+    ) {
+        self.prompt = prompt
+        self.n = n
+        self.size = size
+        self.model = model
+        self.response_format = responseFormat
+        self.style = style
+        self.user = user
+        self.quality = quality
+    }
+
     public enum Style: String, Codable, CaseIterable {
         case natural
         case vivid
